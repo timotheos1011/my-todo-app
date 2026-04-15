@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo Item Card</title>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: #f3f4f6;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    /* Main Card */
+    .todo-card {
+      background-color: white;
+      border: 1px solid #f3f4f6;
+      border-radius: 24px;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 460px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Strikethrough effect */
+    .strikethrough {
+      text-decoration: line-through;
+      opacity: 0.7;
+    }
+
+    /* Checkbox */
+    input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      accent-color: #4f46e5;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+
+    /* Title */
+    #todo-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #111827;
+      line-height: 1.3;
+      flex: 1;
+    }
+
+    /* Description */
+    #todo-description {
+      color: #4b5563;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* Meta Info */
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 24px 20px;
+      font-size: 14px;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .meta-label {
+      color: #6b7280;
+    }
+
+    /* Priority Badge */
+    .priority-badge {
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 500;
+      color: white;
+      background-color: #ef4444;
+    }
+
+    /* Status Badge */
+    .status-badge {
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    /* Tags */
+    .tags-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      padding: 6px 16px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    /* Buttons */
+    .action-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      padding-top: 16px;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 16px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+    }
+
+    .btn-edit {
+      color: #374151;
+      background-color: transparent;
+    }
+
+    .btn-edit:hover {
+      background-color: #f3f4f6;
+    }
+
+    .btn-delete {
+      color: #dc2626;
+      background-color: transparent;
+    }
+
+    .btn-delete:hover {
+      background-color: #fee2e2;
+    }
+
+    /* Focus styles */
+    .btn:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
+    }
+
+    input[type="checkbox"]:focus {
+      outline: 2px solid #4f46e5;
+      outline-offset: 2px;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .todo-card {
+        padding: 20px;
+        border-radius: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <article data-testid="test-todo-card" class="todo-card">
+
+    <!-- Header: Checkbox + Title -->
+    <div style="display: flex; align-items: flex-start; gap: 12px;">
+      <input type="checkbox" id="complete-toggle" data-testid="test-todo-complete-toggle"> 
+      <h2 id="todo-title" data-testid="test-todo-title"> Prepare Q2 marketing campaign </h2>
+    </div>
+
+    <!-- Description -->
+    <p 
+      id="todo-description"
+      data-testid="test-todo-description">
+      Finalize the budget, create social media assets, and schedule the launch.
+    </p>
+
+    <!-- Meta row -->
+    <div class="meta-row">
+
+      <!-- Priority -->
+      <div class="meta-item">
+        <span class="meta-label">Priority:</span>
+        <span 
+          data-testid="test-todo-priority"
+          class="priority-badge">
+          High
+        </span>
+      </div>
+
+      <!-- Status -->
+      <div class="meta-item">
+        <span class="meta-label">Status:</span>
+        <span 
+          id="todo-status"
+          data-testid="test-todo-status"
+          class="status-badge"
+          style="background-color: #fef3c7; color: #b45309;">
+          Pending
+        </span>
+      </div>
+
+      <!-- Due date -->
+      <div class="meta-item">
+        <span class="meta-label">Due:</span>
+        <time 
+          id="due-date"
+          data-testid="test-todo-due-date"
+          datetime="2026-04-18T18:00:00">
+          April 18, 2026
+        </time>
+      </div>
+
+      <!-- Time remaining -->
+      <div class="meta-item">
+        <span 
+          id="time-remaining"
+          data-testid="test-todo-time-remaining"
+          aria-live="polite"
+          style="font-weight: 500; color: #4f46e5;">
+        </span>
+      </div>
+    </div>
+
+    <!-- Tags -->
+    <div data-testid="test-todo-tags" class="tags-container">
+      <span data-testid="test-todo-tag-work" class="tag" style="background-color: #f3f4f6; color: #374151;">work</span>
+      <span data-testid="test-todo-tag-urgent" class="tag" style="background-color: #fee2e2; color: #b91c1c;">urgent</span>
+      <span class="tag" style="background-color: #f3f4f6; color: #374151;">design</span>
+    </div>
+
+    <!-- Action buttons -->
+    <div class="action-buttons">
+      <button 
+        data-testid="test-todo-edit-button"
+        onclick="handleEdit()"
+        class="btn btn-edit">
+        ✏️ Edit
+      </button>
+      <button 
+        data-testid="test-todo-delete-button"
+        onclick="handleDelete()"
+        class="btn btn-delete">
+        🗑️ Delete
+      </button>
+    </div>
+
+  </article>
+
+  <script>
+    // Fixed due date
+    const DUE_DATE = new Date('2026-04-18T18:00:00');
+
+    function getTimeRemaining() {
+      const now = new Date();
+      const diffMs = DUE_DATE - now;
+      const diffHours = diffMs / (1000 * 60 * 60);
+
+      if (diffMs < 0) {
+        const overdueHours = Math.abs(Math.floor(diffHours));
+        if (overdueHours < 1) return "Due now!";
+        return `Overdue by ${overdueHours} hour${overdueHours > 1 ? 's' : ''}`;
+      }
+
+      const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+      if (days === 0) {
+        if (diffHours < 1) return "Due now!";
+        return "Due tomorrow";
+      }
+      if (days === 1) return "Due tomorrow";
+      return `Due in ${days} days`;
+    }
+
+    function updateTimeRemaining() {
+      const el = document.getElementById('time-remaining');
+      el.textContent = getTimeRemaining();
+    }
+
+    // Checkbox behavior
+    const checkbox = document.getElementById('complete-toggle');
+    const titleEl = document.getElementById('todo-title');
+    const statusEl = document.getElementById('todo-status');
+
+    checkbox.addEventListener('change', () => {
+      if (checkbox.checked) {
+        titleEl.classList.add('strikethrough');
+        statusEl.textContent = 'Done';
+        statusEl.style.backgroundColor = '#d1fae5';
+        statusEl.style.color = '#10b981';
+      } else {
+        titleEl.classList.remove('strikethrough');
+        statusEl.textContent = 'Pending';
+        statusEl.style.backgroundColor = '#fef3c7';
+        statusEl.style.color = '#b45309';
+      }
+    });
+
+    // Dummy button actions
+    window.handleEdit = function () {
+      console.log('%c✅ Edit button clicked', 'color: #4f46e5; font-weight: 600');
+      alert('Edit mode would open here (in a real app)');
+    };
+
+    window.handleDelete = function () {
+      console.log('%c🗑️ Delete button clicked', 'color: #dc2626; font-weight: 600');
+      if (confirm('Delete this task?')) {
+        alert('Task deleted (demo)');
+      }
+    };
+
+    // Initialize
+    function initialize() {
+      updateTimeRemaining();
+      // Update every 60 seconds
+      setInterval(updateTimeRemaining, 60000);
+
+      console.log('%c✅ Testable Todo Card initialized successfully!', 'color: #10b981; font-size: 14px;');
+    }
+
+    // Run when page loads
+    window.onload = initialize;
+  </script>
+
+</body>
+</html>

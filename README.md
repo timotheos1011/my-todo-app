@@ -1,44 +1,73 @@
-# 📝 Todo Item Card
+# Testable Todo Item Card
 
-A clean, modern, and testable **Todo / Task Card component** built with **HTML, CSS, and JavaScript**.  
-This project demonstrates accessibility, responsiveness, and dynamic behavior without using frameworks.
+A modern, accessible, interactive, and fully testable Todo/Task Card component built with pure HTML, CSS, and JavaScript.
 
----
+## Project Overview
 
-## 📌 Features
+This project demonstrates a production-ready single Todo Card with strong emphasis on:
+- Testability (using exact `data-testid` attributes)
+- Accessibility (WCAG AA compliant)
+- Responsiveness
+- Interactive behavior
 
-- **Task Title & Description**  
-  Displays the task name and notes clearly.
+## Stages Completed
 
-- **Priority Badge**  
-  Shows task importance (Low, Medium, High).
+### Stage 0 - Basic Card ✅
+- Core UI with all required test IDs
+- Checkbox, priority, due date, time remaining, tags, edit & delete buttons
+- Responsive design and basic interactions
 
-- **Status Indicator**  
-  Updates between *Pending*, *In Progress*, and *Done*.
+### Stage 1 - Interactive & Stateful ✅
+- Full edit mode with form
+- Status management and synchronization
+- Collapsible description
+- Enhanced priority and time handling
+- Advanced state logic
 
-- **Due Date & Time Remaining**  
-  Friendly countdown like *“Due tomorrow”* or *“Overdue by 2 hours”*.
+## Features
 
-- **Completion Toggle**  
-  Real checkbox to mark tasks complete (strike‑through title, status changes to Done).
+- **Inline Edit Mode** – Click "Edit" to modify title, description, priority, and due date
+- **Status Control** – Change between Pending, In Progress, and Done
+- **Smart Checkbox Sync** – Toggling checkbox updates status and vice versa
+- **Collapsible Description** – Long descriptions are collapsed by default
+- **Real-time Time Remaining** – Updates every 30 seconds with granular text (minutes, hours, days)
+- **Overdue Indicator** – Clear visual warning when task is overdue
+- **Priority Visuals** – Colored dot indicator + badge
+- **Done State** – Strikethrough title and muted styling
+- **Fully Responsive** – Works perfectly from 320px to 1200px+
 
-- **Tags / Categories**  
-  Chips for categories like *work*, *urgent*, *design*.
+## New Changes from Stage 0
 
-- **Edit & Delete Buttons**  
-  Accessible buttons with dummy actions (`console.log` / `alert`).
+- Added complete **Edit Mode** with form fields and Save/Cancel actions
+- Implemented **Status Dropdown** with live synchronization
+- Added **Expand/Collapse** toggle for descriptions
+- Enhanced **Time Remaining** logic with minutes and overdue detection
+- Added **Priority Indicator** (colored dot)
+- Improved overall state management and visual feedback
+- Better accessibility patterns
 
----
+## Accessibility Notes
 
-## 🛠️ Tech Stack
+- Semantic HTML structure (`<article>`, `<time>`, proper labels)
+- Full keyboard navigation support
+- Visible focus indicators
+- ARIA live region for time remaining updates
+- Screen-reader friendly buttons and form controls
+- Good color contrast throughout
 
-- **HTML5** → Semantic structure (`<article>`, `<time>`, `<button>`, `<input>`).  
-- **CSS3** → Modern styling, responsive layout, focus styles.  
-- **JavaScript (ES6)** → Dynamic time‑remaining calculation, checkbox toggle behavior.
+## Known Limitations
 
----
+- Single card implementation only (no full list yet)
+- No persistence — changes reset on page refresh
+- Tag editing not implemented in edit mode
+- No focus trapping in edit mode (can be added later)
+- Due date uses native browser `datetime-local` input
 
-## 📂 Project Structure
-index.html      # Main file
-style.css       # Styling
-script.js       # Interactivity
+## Tech Stack
+
+- **HTML5**
+- **CSS3** (Vanilla)
+- **Vanilla JavaScript**
+- Google Fonts (Inter)
+
+## File Structure
